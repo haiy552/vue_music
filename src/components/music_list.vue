@@ -3,7 +3,7 @@
         <h4>华语</h4>
             <ul>
                 <li v-for="item in img_list" :key="item.index" >
-                    <img :src="item.coverImgUrl" :id="item.id" alt="">
+                    <img :src="item.coverImgUrl"  :list_Id="item.id"  alt='' @click="get_List_Id">
                     <span style="color:#403636">{{item.name}}</span>
                 </li>
 
@@ -14,6 +14,7 @@
 <script>
     import axios from 'axios';
     axios.defaults.baseURL = 'http://localhost:3000';
+
     export default {
         name: "music_list",
         data(){
@@ -28,6 +29,16 @@
             get_Music_List(){
                 axios.get('/top/playlist?limit=40&cat:cat:华语&order=hot').then(res => {
                     this.img_list = res.data.playlists;
+                    // console.log(this.img_list);
+                });
+            },
+            // 通过歌单的id,请求歌单数据获取歌名和歌的id，然后通过歌的id获取歌的地址
+            get_List_Id(e){
+                let listId = Number(e.target.attributes.list_id.value);
+                // console.log(id);
+                this.$store.commit("getListId", listId);
+                axios.get(`/playlist/detail?id=${listId}`).then(res => {
+                    console.log(res.data.playlist.tracks)
                     // console.log(this.img_list);
                 });
             }
@@ -58,11 +69,11 @@
             background: #717273;
         }
         /*滚动条轨道*/
-        &::-webkit-scrollbar-track {
-            -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0);
-            border-radius: 10px;
-            background: #ccc;
-        }
+        /*&::-webkit-scrollbar-track {*/
+        /*    -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0);*/
+        /*    border-radius: 10px;*/
+        /*    background: #ccc;*/
+        /*}*/
         h4 {
             margin-top: 0.2rem;
             margin-left: 1.5rem;

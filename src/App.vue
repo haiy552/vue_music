@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-<home></home>
-<!--    <v-about></v-about>-->
+    <home></home>
   </div>
 </template>
 <script>
@@ -10,7 +9,6 @@
 import home from"./pages/home"
   export default {
     name: 'app',
-
     components: {
       home
     },
@@ -29,9 +27,8 @@ body {
     max-width: 1080px;
     max-height: 950px;
     overflow: hidden;
-    margin: auto;
+    margin: 0 auto;
     /*border: 2px solid red;*/
   }
-
 
 </style>

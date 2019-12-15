@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import App from './App.vue'
-// import './registerServiceWorker'
+import vuex from 'vuex'
 import router from './router/index'
 import store from './store'
-// import axios from 'axios'
-Vue.use("vuex");
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(vuex);
+Vue.use(ElementUI);
 Vue.config.productionTip = false;
 
 new Vue({
