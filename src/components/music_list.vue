@@ -3,10 +3,11 @@
         <h4>华语</h4>
             <ul>
                 <li v-for="item in img_list" :key="item.index" >
-                    <img :src="item.coverImgUrl"  :list_Id="item.id"  alt='' @click="get_List_Id">
+                    <router-link to="/music_menu">
+                        <img :src="item.coverImgUrl"  :list_Id="item.id"  alt='' @click="get_List_Id">
+                    </router-link>
                     <span style="color:#403636">{{item.name}}</span>
                 </li>
-
             </ul>
     </div>
 </template>
@@ -37,10 +38,7 @@
                 let listId = Number(e.target.attributes.list_id.value);
                 // console.log(id);
                 this.$store.commit("getListId", listId);
-                axios.get(`/playlist/detail?id=${listId}`).then(res => {
-                    console.log(res.data.playlist.tracks)
-                    // console.log(this.img_list);
-                });
+
             }
         }
     }
@@ -53,7 +51,7 @@
         height: 550px;
         overflow: auto;
         margin-top: 1rem;
-        border: 2px solid red;
+        border-right: 2px solid red;
         border-bottom: 0;
         border-top: 0;
         box-sizing: border-box;
@@ -68,12 +66,7 @@
             -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
             background: #717273;
         }
-        /*滚动条轨道*/
-        /*&::-webkit-scrollbar-track {*/
-        /*    -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0);*/
-        /*    border-radius: 10px;*/
-        /*    background: #ccc;*/
-        /*}*/
+
         h4 {
             margin-top: 0.2rem;
             margin-left: 1.5rem;

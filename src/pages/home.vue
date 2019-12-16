@@ -2,8 +2,6 @@
     <div class="bbox">
         <carousel></carousel>
         <music_list></music_list>
-        {{this.$store.state.id}}
-        <play></play>
 
     </div>
 
@@ -13,7 +11,6 @@
     import axios from 'axios';
     axios.defaults.baseURL = 'http://localhost:3000';
     import music_list from "../components/music_list"
-    import play from '../components/play'
     import carousel from '../components/carousel'
     // axios.defaults.timeout = 1000;
     export default {
@@ -23,7 +20,6 @@
         }},
         components: {
             'music_list': music_list,
-            'play':play,
             carousel
         }
     }

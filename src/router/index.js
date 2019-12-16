@@ -7,10 +7,19 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
+    path:'/',
+    redirect: '/home'
+  },
+  {
+    path: '/home',
     name: 'home',
     component: () => import("../pages/home")
-  }
+  },
+  {
+    path: '/music_menu',
+    name: 'music_menu',
+    component: () => import("../pages/music_menu")
+  },
 ];
 
 const router = new VueRouter({

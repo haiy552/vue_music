@@ -9,12 +9,16 @@ export default new Vuex.Store({
   },
   mutations: {
     getListId(state,id){
-      // console.log(this.state.id);
-      // console.log(this.state.id);
       return state.id = id;
-    }
+    },
+
   },
   actions: {
+  },
+  getters: {
+    seeId(state){
+      return state.id;
+    }
   },
   modules: {
   }
