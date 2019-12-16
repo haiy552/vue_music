@@ -4,15 +4,15 @@
             <li v-for="item in musicName" :key="item.index" class="music_list">
                 <div class="dan_music">
                     <div class=" music_img">
-                        <img src="../image/play.jpg" alt=""  >
+                        <img src="../image/play.jpg" alt="" :list_Id="item.id" @click="get_List_Id">
                     </div>
                     <div class="music_name">
-                        <p :list_Id="item.id" @click="get_List_Id">{{item.al.name}}</p>
+                        <p>{{item.al.name}}</p>
                     </div>
                 </div>
             </li>
         </ul>
-        {{this.$store.state.id}}
+<!--        {{this.$store.state.music_scr}}-->
     </div>
 </template>
 
@@ -40,7 +40,12 @@
             },
             get_List_Id(e){
                 let listId = Number(e.target.attributes.list_id.value);
-                this.$store.commit("getListId", listId);
+                this.$store.commit("change_music_id", listId);
+
+                axios.get(`/song/url?id=${listId}`).then(res => {
+                   let music_url = res.data.data[0].url;
+                   this.$store.commit("change_music_scr",music_url)
+                })
             }
         }
     }
@@ -91,6 +96,7 @@
                             display: block;
                             height: 25px;
                             border-radius: 50%;
+                            cursor: pointer;
                         }
                     }
                     .music_name{
