@@ -7,12 +7,11 @@
                  <span class="iconfont icon-xiayishou music_next" ></span>
              </div>
              <div class="music_log">
-                 <img src="../image/play.jpg" alt="" class="songer_photo">
+                 <img :src="this.$store.getters.music_photo_view" alt="" class="songer_photo">
                  <div class="music_jindu">
-                     <span class="music_title">歌名</span>
+                     <span class="music_title">{{this.$store.getters.music_title_view}}</span>
                      <div class="music_line"></div>
                  </div>
-
              </div>
         </div>
     </div>
@@ -23,15 +22,24 @@
     axios.defaults.baseURL = 'http://localhost:3000';
     export default {
         name: "play",
-
+            data(){
+             return {
+                 music_url: ''
+             }
+            },
         methods: {
             play(){
             }
         },
         components: {
+
         },
         created(){
             // this.videoUpload.music.url = this.$store.getters.music_scr_view
+            // console.log(this.$store.getters.music_music_photo_view, 1)
+        },
+        computed: {
+            // listen(){return this.$store.getters.music_music_photo_view}
         }
 
     }
@@ -94,8 +102,6 @@
                     height: 3rem;
                     flex: 0.2;
                     width: 3rem;
-
-                    border-radius: 50%;
                     margin: 0.5rem;
                     margin-top: 0.6rem;
                 }
@@ -103,10 +109,11 @@
                     position: relative;
                     flex: 3;
                      .music_title {
-                         /*margin-left: 2rem;*/
+                         margin-left: 1rem;
                          display: block;
                          position: absolute;
                          bottom: 3rem;
+                         color:#DC4C40;
                          /*margin-top: 1rem;*/
                      }
                      .music_line {

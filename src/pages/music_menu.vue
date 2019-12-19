@@ -1,13 +1,13 @@
 <template>
     <div class="music_menu">
         <ul class="music_lists">
-            <li v-for="item in musicName" :key="item.index" class="music_list">
+            <li v-for="item in music_xinxi" :key="item.id" class="music_list">
                 <div class="dan_music">
                     <div class=" music_img">
-                        <img src="../image/play.jpg" alt="" :list_Id="item.id" @click="get_List_Id">
+                        <img src="../image/play.jpg" :id="item.id" @click="get_List_Id">
                     </div>
                     <div class="music_name">
-                        <p>{{item.al.name}}</p>
+                        <p>{{item.name}}</p>
                     </div>
                 </div>
             </li>
@@ -23,7 +23,8 @@
         name: "music_menu",
         data(){
             return {
-                musicName: []
+                music_xinxi: {},
+                // photo_src: {}
             }
         },
         created() {
@@ -33,18 +34,27 @@
             musicId(){
                 let listId = this.$store.getters.seeId;
                 axios.get(`/playlist/detail?id=${listId}`).then(res => {
-                    // console.log(res.data.playlist.tracks);
-                    this.musicName = res.data.playlist.tracks;
-
+                    let music_list = res.data.playlist.tracks;
+                    this.music_xinxi = music_list.map(item => {
+                        return {
+                            id:item.id, name:item.name, url: item['al'].picUrl
+                        }
+                    });
                 });
             },
             get_List_Id(e){
-                let listId = Number(e.target.attributes.list_id.value);
-                this.$store.commit("change_music_id", listId);
-
+                let listId = e.target.id;
+                let music_url = this.music_xinxi.find(item => item.id == listId).url;
+                let music_title = this.music_xinxi.find(item => item.id == listId).name;
+                this.$store.commit("change_music_photo",music_url);
+                this.$store.commit("change_music_title",music_title);
+                // console.log(this.$store.getters.music_music_photo_view);
+                // console.log(music_url);
                 axios.get(`/song/url?id=${listId}`).then(res => {
+                //     // console.log(res.data);
                    let music_url = res.data.data[0].url;
-                   this.$store.commit("change_music_scr",music_url)
+                   this.$store.commit("change_music_scr",music_url);
+
                 })
             }
         }

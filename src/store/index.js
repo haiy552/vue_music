@@ -9,6 +9,7 @@ export default new Vuex.Store({
       muisc_lits_id:'',
       music_id:'',
       music_scr:'',
+      music_photo: '',
       music_title:''
     }
   },
@@ -21,6 +22,12 @@ export default new Vuex.Store({
     },
     change_music_scr(state, scr){
       return state.music.music_scr = scr;
+    },
+    change_music_photo(state, music_photo){
+      return state.music.music_photo = music_photo;
+    },
+    change_music_title(state, music_title){
+      return state.music.music_title = music_title;
     }
   },
   actions: {
@@ -34,6 +41,12 @@ export default new Vuex.Store({
     },
     music_scr_view(state){
       return state.music.music_scr;
+    },
+    music_photo_view(state){
+      return state.music.music_photo;
+    },
+    music_title_view(state){
+      return state.music.music_title;
     },
   },
   modules: {

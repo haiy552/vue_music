@@ -2,8 +2,8 @@
   <div id="app">
     <router-view></router-view>
     <play></play>
-    <img src="./image/0.gif" alt="" class="pig_left">
-    <img src="./image/0.gif" alt="" class="pig_right">
+<!--    <img src="./image/0.gif" alt="" class="pig_left">-->
+<!--    <img src="./image/0.gif" alt="" class="pig_right">-->
   </div>
 </template>
 <script>
