@@ -16,9 +16,10 @@ const routes = [
     component: () => import("../pages/home")
   },
   {
-    path: '/music_menu',
+    path: '/music_menu*',
     name: 'music_menu',
-    component: () => import("../pages/music_menu")
+    component: () => import("../pages/music_menu"),
+    // props: route => ({id: route.params.id})
   },
 ];
 

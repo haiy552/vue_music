@@ -3,7 +3,7 @@
         <h4>华语</h4>
             <ul>
                 <li v-for="item in img_list" :key="item.index" >
-                    <router-link to="/music_menu">
+                    <router-link :to="{path: 'music_menu',query:{id: $store.getters.seeId}}">
                         <img :src="item.coverImgUrl"  :list_Id="item.id"  alt='' @click="get_List_Id">
                     </router-link>
                     <span style="color:#403636">{{item.name}}</span>
@@ -21,6 +21,7 @@
         data(){
             return{
                 img_list: [],
+                music_id: ''
             }
         },
         created(){
@@ -28,10 +29,11 @@
         },
         methods:{
             get_Music_List(){
-                axios.get('/top/playlist?limit=40&cat:cat:华语&order=hot').then(res => {
+                axios.get('/top/playlist?limit=56&cat:cat:华语&order=hot').then(res => {
                     this.img_list = res.data.playlists;
                     // console.log(this.img_list);
                 });
+                // console.log(this.$router)
             },
             // 通过歌单的id,请求歌单数据获取歌名和歌的id，然后通过歌的id获取歌的地址
             get_List_Id(e){
@@ -87,12 +89,18 @@
             /*justify-content:space-between;*/
             flex-wrap: wrap;
             li{
-                flex: 2px;
+                flex: 2;
                 padding: 0.5rem;
                 vertical-align: top;
                 img {
                     width: 7rem;
+                    /*display: block;*/
                     cursor: pointer;
+                }
+                span{
+                    width: 7rem;
+                    display: block;
+                    box-sizing: border-box;
                 }
             }
         }

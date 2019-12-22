@@ -18,7 +18,7 @@
         data(){return{
             mag: null,
         }},
-        mounted(){
+        created(){
             this.crDoubai();
         },
 

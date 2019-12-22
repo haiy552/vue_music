@@ -3,8 +3,9 @@
         <div class="music_play_box">
              <div class="music_play">
                  <span class="iconfont icon-shangyishou music_pre" ></span>
-                 <span class="iconfont icon-bofang1 music_playing" ></span>
+                 <span class="iconfont icon-bofang1 music_playing"  @click="get_au"></span>
                  <span class="iconfont icon-xiayishou music_next" ></span>
+                 <audio :src="this.$store.getters.music_scr_view" autoplay="autoplay" ref="au"></audio>
              </div>
              <div class="music_log">
                  <img :src="this.$store.getters.music_photo_view" alt="" class="songer_photo">
@@ -12,6 +13,7 @@
                      <span class="music_title">{{this.$store.getters.music_title_view}}</span>
                      <div class="music_line"></div>
                  </div>
+                 <span class="music_time">00:00/00:00</span>
              </div>
         </div>
     </div>
@@ -28,7 +30,8 @@
              }
             },
         methods: {
-            play(){
+            get_au(){
+                console.dir(this.$refs.au.duration)
             }
         },
         components: {
@@ -118,13 +121,19 @@
                      }
                      .music_line {
                          height: 0.1rem;
-                         width: 50rem;
+                         width: 100%;
                          background:#7e8c8d;
                          /*border-radius: 0.05rem;*/
                          position: absolute;
                          bottom: 50%;
                          transform: translateY(50%);
                      }
+                }
+                .music_time {
+                    display: block;
+                    text-align: center;
+                    line-height: 4.5rem;
+                    flex: 0.5;
                 }
             }
         }
