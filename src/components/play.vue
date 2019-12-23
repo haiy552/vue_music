@@ -2,18 +2,28 @@
     <div class="bottom_box">
         <div class="music_play_box">
              <div class="music_play">
+                 <!-- 上一首 -->
                  <span class="iconfont icon-shangyishou music_pre" ></span>
-                 <span class="iconfont icon-bofang1 music_playing"  @click="get_au"></span>
+                 <!-- 播放 -->
+                 <span class="iconfont icon-bofang1 music_playing"  ></span>
+                 <!-- 下一首 -->
                  <span class="iconfont icon-xiayishou music_next" ></span>
-                 <audio :src="this.$store.getters.music_scr_view" autoplay="autoplay" ref="au"></audio>
+                 <!-- 歌曲url存放 -->
+                 <audio :src="this.$store.getters.music_scr_view" autoplay="autoplay"></audio>
              </div>
              <div class="music_log">
+                 <!-- 专辑图片 -->
                  <img :src="this.$store.getters.music_photo_view" alt="" class="songer_photo">
                  <div class="music_jindu">
+                     <!-- 歌名+歌手名 -->
                      <span class="music_title">{{this.$store.getters.music_title_view}}</span>
-                     <div class="music_line"></div>
+                     <!-- 歌曲进度条 -->
+                     <div class="music_line">
+                         <div class="line"></div>
+                     </div>
                  </div>
-                 <span class="music_time">00:00/00:00</span>
+                 <!-- 歌曲时间 -->
+                 <span class="music_time" ref="musicTime">00:00/{{this.$store.getters.music_time_view}}</span>
              </div>
         </div>
     </div>
@@ -26,24 +36,24 @@
         name: "play",
             data(){
              return {
-                 music_url: ''
              }
             },
         methods: {
-            get_au(){
-                console.dir(this.$refs.au.duration)
-            }
+        
         },
         components: {
 
         },
         created(){
-            // this.videoUpload.music.url = this.$store.getters.music_scr_view
-            // console.log(this.$store.getters.music_music_photo_view, 1)
+            
         },
         computed: {
-            // listen(){return this.$store.getters.music_music_photo_view}
-        }
+            
+        },
+        watch: {
+
+        },
+        
 
     }
 
@@ -127,6 +137,12 @@
                          position: absolute;
                          bottom: 50%;
                          transform: translateY(50%);
+                         .line {
+                             height: 100%;
+                            //  width: 12px;
+                             position: absolute;
+                             background-color: rgb(192, 35, 35);
+                         }
                      }
                 }
                 .music_time {

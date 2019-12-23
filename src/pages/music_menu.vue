@@ -1,20 +1,30 @@
 <template>
     <div class="music_menu">
         <ul class="music_lists">
-            <li v-for="(item, index) in music_xinxi" :key="item.id" class="music_list">
+            <!-- 歌曲列表 -->
+            <li v-for="(item, index) in music_xinxi" :key="item.id" class="music_list" >
                 <div class="dan_music">
+                    <!-- 序号 -->
                     <span class="order">{{index + 1}}</span>
+                    <!-- 播放图片 -->
                     <div class=" music_img">
+                        <!-- 点击此图片播放音乐 -->
                         <img src="../image/play.jpg" :id="item.id" @click="get_List_Id">
                     </div>
+                    <!-- 歌曲名 -->
                     <div class="music_name">
                         <p>{{item.name}}</p>
                     </div>
+                    <!-- 歌曲总时间 -->
+                    <div class="music_time" >
+                        <span>{{item.music_time}}</span>
+                    </div>
+                    <!-- 歌手 -->
                     <span class="list_music_songer">{{item.songer}}</span>
                 </div>
             </li>
         </ul>
-<!--        {{this.$store.state.music_scr}}-->
+        <p ref="liStyleColor">111</p>
     </div>
 </template>
 
@@ -25,42 +35,71 @@
         name: "music_menu",
         data(){
             return {
+                //歌曲信息, 里面存放歌曲id、歌曲名、歌手、专辑图片url
                 music_xinxi: {},
-                // photo_src: {}
             }
         },
         created() {
-            // console.log(this.$route);
-            this.musicId();
+            //在刷新网页后加载此方法
+            this.create_music_list();
+           console.log(this.$refs);
+            
+            // let list = this.$refs.find(item => {item.index %2 });
+            // console.log(list);
+            // let num =1
+            // setInterval(()=>{num++; console.log(num)},1000)
+        },
+        update () {
+                
         },
         methods: {
             //通过url里的id，get请求后获取歌曲信息
-            musicId(){
+            create_music_list(){
                 let listId = this.$route.query.id;
                 axios.get(`/playlist/detail?id=${listId}`).then(res => {
-                    console.log(res.data);
                     let music_list = res.data.playlist.tracks;
                     this.music_xinxi = music_list.map(item => {
                         return {
-                            id:item.id, name:item.name, url: item['al'].picUrl, songer: item['ar'][0].name
+                            id:item.id, name:item.name, url: item['al'].picUrl, songer: item['ar'][0].name, music_time: this.clean_tiem(item.dt)
                         }
                     });
                 });
             },
             // 获取img绑定的歌曲id、图片、名字，改变play里面的图片和歌曲url
             get_List_Id(e){
+                //把之前的url取消
+                this.$store.commit("change_music_scr","");
                 let listId = Number(e.target.id);
+                //获取当前数组
                 let music_list = this.music_xinxi.find(item => item.id === listId);
-                let [music_url, music_title] = [music_list.url, `${music_list.name}=♥♥♥=${music_list.songer}`];
-                // let music_title = this.music_xinxi.find(item => {item.id === listId ).name;
+                //获取当前歌曲总时间
+                let music_time = music_list.music_time;
+                //获取歌曲url，歌曲名和歌手
+                let [music_url, music_title] = [music_list.url, `${music_list.name}~(❤ ω ❤)~${music_list.songer}`];
+                //在store中存放url
                 this.$store.commit("change_music_photo",music_url);
+                //在store中存放歌曲名和歌手
                 this.$store.commit("change_music_title",music_title);
-
+                //通过歌曲id获取mp3的url
                 axios.get(`/song/url?id=${listId}`).then(res => {
                    let music_url = res.data.data[0].url;
+                //存放mp3 url
                    this.$store.commit("change_music_scr",music_url);
-
                 })
+                //存放歌曲总时间
+                this.$store.commit("change_music_time", music_time);
+                
+            },
+            //歌曲时间整理，只针对1小时以内的
+            clean_tiem(time) {
+               let min = Math.floor(time / (1000*60));
+               min = min > 10 ? min : `0${min}`;
+               let sec = Math.floor((time /1000) %60);
+               sec = sec > 10 ? sec : `0${sec}`;
+               return `${min}:${sec}`
+            },
+            timer(){
+                
             }
         }
     }
@@ -90,10 +129,10 @@
             -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
             background: #717273;
         }
-
         .music_lists{
             display: flex;
             flex-direction: column;
+            height: 25px;
             .music_list{
                 flex: 1;
                 padding: 0.5rem 0 0.5rem 0;
@@ -103,7 +142,7 @@
                 .dan_music{
                     display: flex;
                     .order {
-                        flex: 0.2;
+                        flex: 0.3;
                         height: 100%;
                     }
                     .music_img{
@@ -122,7 +161,10 @@
                     }
                     .music_name{
                         cursor: pointer;
-                        flex: 3;
+                        flex: 2.5;
+                        height: 100%;
+                        text-wrap: none;
+                        overflow: hidden;
                         p{
                             display: block;
                             height: 100%;
@@ -133,10 +175,15 @@
                             }
                         }
                     }
+                    .music_time{
+                        cursor: pointer;
+                        flex: 2;
+                    }
                     .list_music_songer {
                         display: block;
-                        flex: 1;
+                        flex: 2;
                     }
+
                 }
             }
         }
