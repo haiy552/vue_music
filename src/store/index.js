@@ -11,7 +11,8 @@ export default new Vuex.Store({
       music_scr:'',
       music_photo: '',
       music_title:'',
-      music_time: '00:00'
+      music_time: '00:00',
+      music_play: false,
     }
   },
   mutations: {
@@ -32,7 +33,10 @@ export default new Vuex.Store({
     },
     change_music_time(state, music_time){
       return state.music.music_time = music_time;
-    }
+    },
+    change_music_play(state, bool){
+      return state.music.music_play = bool;
+    },
   },
   actions: {
   },
@@ -54,7 +58,10 @@ export default new Vuex.Store({
     },
     music_time_view(state){
       return state.music.music_time;
-    }
+    },
+    music_music_play(state){
+      return state.music.music_play;
+    },
   },
   modules: {
   }

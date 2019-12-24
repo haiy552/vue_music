@@ -24,7 +24,6 @@
                 </div>
             </li>
         </ul>
-        <p ref="liStyleColor">111</p>
     </div>
 </template>
 
@@ -42,7 +41,7 @@
         created() {
             //在刷新网页后加载此方法
             this.create_music_list();
-           console.log(this.$refs);
+           
             
             // let list = this.$refs.find(item => {item.index %2 });
             // console.log(list);
@@ -60,7 +59,7 @@
                     let music_list = res.data.playlist.tracks;
                     this.music_xinxi = music_list.map(item => {
                         return {
-                            id:item.id, name:item.name, url: item['al'].picUrl, songer: item['ar'][0].name, music_time: this.clean_tiem(item.dt)
+                            id:item.id, name:item.name, url: item['al'].picUrl, songer: item['ar'][0].name, music_time: this.clean_time(item.dt)
                         }
                     });
                 });
@@ -88,10 +87,11 @@
                 })
                 //存放歌曲总时间
                 this.$store.commit("change_music_time", music_time);
+                this.$store.commit("change_music_play", true);
                 
             },
             //歌曲时间整理，只针对1小时以内的
-            clean_tiem(time) {
+            clean_time(time) {
                let min = Math.floor(time / (1000*60));
                min = min > 10 ? min : `0${min}`;
                let sec = Math.floor((time /1000) %60);

@@ -4,12 +4,13 @@
              <div class="music_play">
                  <!-- 上一首 -->
                  <span class="iconfont icon-shangyishou music_pre" ></span>
-                 <!-- 播放 -->
-                 <span class="iconfont icon-bofang1 music_playing"  ></span>
+                 <!-- 播放 -->   
+                <span class="iconfont icon-bofang1 music_playing"   @click="play" ref="play"></span>
+
                  <!-- 下一首 -->
                  <span class="iconfont icon-xiayishou music_next" ></span>
                  <!-- 歌曲url存放 -->
-                 <audio :src="this.$store.getters.music_scr_view" autoplay="autoplay"></audio>
+                 <audio :src="this.$store.getters.music_scr_view" autoplay="autoplay" ref="au"></audio>
              </div>
              <div class="music_log">
                  <!-- 专辑图片 -->
@@ -18,12 +19,13 @@
                      <!-- 歌名+歌手名 -->
                      <span class="music_title">{{this.$store.getters.music_title_view}}</span>
                      <!-- 歌曲进度条 -->
-                     <div class="music_line">
-                         <div class="line"></div>
+                     <div class="music_line" ref="music_line" >
+                        <!-- {{line_view}} -->
+                         <div class="line" :style="{width:line_view+'px'}"></div>
                      </div>
                  </div>
                  <!-- 歌曲时间 -->
-                 <span class="music_time" ref="musicTime">00:00/{{this.$store.getters.music_time_view}}</span>
+                 <span class="music_time" ref="musicTime">{{step_time}}/{{this.$store.getters.music_time_view}}</span>
              </div>
         </div>
     </div>
@@ -36,23 +38,71 @@
         name: "play",
             data(){
              return {
+                 line_view: '',
+                 line_width: null,
+                 all_time: '',
+                 step: '',
+                 step_time: "00:00",
+                 falg: this.$store.getters.music_music_play
              }
             },
         methods: {
-        
+            clean_time(time) {
+               let min = Math.floor(time /60);
+               min = min > 10 ? min : `0${min}`;
+               let sec = Math.floor(time % 60);
+               sec = sec > 10 ? sec : `0${sec}`;
+               return `${min}:${sec}`
+            },
+            play(){
+                if(this.$store.getters.music_music_play){
+                    this.$refs.au.pause();
+                    this.$store.commit("change_music_play", false);
+                    this.$refs.play.className = "iconfont icon-bofang1 music_playing";
+                }else{
+                    this.$refs.au.play();
+                    this.$store.commit("change_music_play", true);
+                    this.$refs.play.className = "iconfont icon-bofang music_playing";
+                }
+            }
         },
         components: {
 
         },
-        created(){
-            
+        mounted(){
+            this.$refs.au.addEventListener('canplay', () => {
+            [this.line_width, this.all_time] = [this.$refs.music_line.offsetWidth, this.$refs.au.duration];
+            this.$refs.play.className = "iconfont icon-bofang music_playing";
+            // this.line_view = this.line_width / (this.all_time / this.$refs.au.currentTime);
+            })
+            this.$refs.au.addEventListener('timeupdate', () => {
+                this.step =  this.$refs.au.currentTime;
+                this.step_time = this.clean_time(this.step);
+                this.line_view = this.line_width / (this.all_time / this.step);
+            })
         },
         computed: {
-            
-        },
-        watch: {
 
         },
+        watch: {
+            // all_time: function(){
+            //     if(this.line_width){
+            //         return this.all_time = this.$refs.au.duration
+            //     }
+            // },
+
+            // step: function(){
+            //     if(this.line_width){
+            //         return this.step = this.$refs.au.currentTime
+            //     // return this.line_width / (this.all_time / this.step)
+            //     }
+            // },
+            // line_view: function() {
+            //     if(this.line_width){
+            //         return this.line_view = this.line_width / (this.all_time / this.step) + "px";
+            //     }
+            // }
+        },      
         
 
     }
