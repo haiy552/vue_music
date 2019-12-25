@@ -13,7 +13,9 @@
                     </div>
                     <!-- 歌曲名 -->
                     <div class="music_name">
-                        <p>{{item.name}}</p>
+                        <router-link :to="{path: 'lyric',query:{id: item.id}}" tap="a">
+                            <p>{{item.name}}</p>
+                        </router-link>
                     </div>
                     <!-- 歌曲总时间 -->
                     <div class="music_time" >
@@ -41,12 +43,7 @@
         created() {
             //在刷新网页后加载此方法
             this.create_music_list();
-           
-            
-            // let list = this.$refs.find(item => {item.index %2 });
-            // console.log(list);
-            // let num =1
-            // setInterval(()=>{num++; console.log(num)},1000)
+
         },
         update () {
                 
@@ -69,6 +66,7 @@
                 //把之前的url取消
                 this.$store.commit("change_music_scr","");
                 let listId = Number(e.target.id);
+                this.$store.commit("change_music_id", listId);
                 //获取当前数组
                 let music_list = this.music_xinxi.find(item => item.id === listId);
                 //获取当前歌曲总时间
@@ -93,9 +91,9 @@
             //歌曲时间整理，只针对1小时以内的
             clean_time(time) {
                let min = Math.floor(time / (1000*60));
-               min = min > 10 ? min : `0${min}`;
+               min = min >= 10 ? min : `0${min}`;
                let sec = Math.floor((time /1000) %60);
-               sec = sec > 10 ? sec : `0${sec}`;
+               sec = sec >= 10 ? sec : `0${sec}`;
                return `${min}:${sec}`
             },
             timer(){
@@ -152,11 +150,10 @@
                         flex: 0.3;
                         height: 100%;
                         img {
-                            /*float: right;*/
-                            /*margin-right: 3rem;*/
                             height: 25px;
                             border-radius: 50%;
                             cursor: pointer;
+                            -webkit-box-shadow: inset 5px 5px 5px rgba(0,0,0,0.5);
                         }
                     }
                     .music_name{
@@ -165,13 +162,15 @@
                         height: 100%;
                         text-wrap: none;
                         overflow: hidden;
-                        p{
-                            display: block;
-                            height: 100%;
-                            /*vertical-align: middle;*/
-                            &:hover {
-                                color: pink;
-                                text-decoration: underline;
+                        a{
+                            color:#000000;
+                            text-decoration: none;
+                            p{
+                                display: block;
+                                height: 100%;
+                                &:hover {
+                                    color: pink;
+                                }
                             }
                         }
                     }

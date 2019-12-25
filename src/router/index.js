@@ -21,6 +21,11 @@ const routes = [
     component: () => import("../pages/music_menu"),
     // props: route => ({id: route.params.id})
   },
+  {
+    path: '/lyric*',
+    name: 'lyric',
+    component: () => import("../pages/lyric"),
+  }
 ];
 
 const router = new VueRouter({

@@ -14,7 +14,9 @@
              </div>
              <div class="music_log">
                  <!-- 专辑图片 -->
-                 <img :src="this.$store.getters.music_photo_view" alt="" class="songer_photo">
+                <router-link :to="{path: 'lyric',query:{id: $store.getters.music_id_view}}">
+                    <img :src="this.$store.getters.music_photo_view" alt="" class="songer_photo" >
+                </router-link>
                  <div class="music_jindu">
                      <!-- 歌名+歌手名 -->
                      <span class="music_title">{{this.$store.getters.music_title_view}}</span>
@@ -49,9 +51,9 @@
         methods: {
             clean_time(time) {
                let min = Math.floor(time /60);
-               min = min > 10 ? min : `0${min}`;
+               min = min >= 10 ? min : `0${min}`;
                let sec = Math.floor(time % 60);
-               sec = sec > 10 ? sec : `0${sec}`;
+               sec = sec >= 10 ? sec : `0${sec}`;
                return `${min}:${sec}`
             },
             play(){
@@ -64,7 +66,8 @@
                     this.$store.commit("change_music_play", true);
                     this.$refs.play.className = "iconfont icon-bofang music_playing";
                 }
-            }
+            },
+            
         },
         components: {
 
