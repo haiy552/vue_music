@@ -1,6 +1,7 @@
 <template>
     <div class="bbox">  
         <carousel></carousel>
+        <menu_list></menu_list>
         <music_list></music_list>
     </div>
 
@@ -11,6 +12,8 @@
     axios.defaults.baseURL = 'http://localhost:3000';
     import music_list from "../components/music_list"
     import carousel from '../components/carousel'
+    import menu_list from '../components/menu_list'
+
     // axios.defaults.timeout = 1000;
     export default {
         name: "home",
@@ -20,6 +23,8 @@
         components: {
             'music_list': music_list,
             carousel,
+            menu_list
+
         }
     }
 </script>

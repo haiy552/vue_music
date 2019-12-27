@@ -8,7 +8,7 @@
   </div>
 </template>
 <script>
-  // @ is an alias to /src
+
 
   import play from './components/play'
   import title_logo from './components/title_logo'

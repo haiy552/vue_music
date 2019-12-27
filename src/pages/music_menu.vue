@@ -114,7 +114,7 @@
     
     .music_menu{
         width: 100%;
-        height: 700px;
+        height: 750px;
         margin-top: 3.5rem;
         border-right: 2px solid red;
         overflow: auto;

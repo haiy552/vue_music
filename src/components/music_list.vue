@@ -49,7 +49,7 @@
     .box{
         //框架尺寸定型
         width: 100%;
-        height: 500px;
+        height: 450px;
         overflow: auto;
         margin-top: 1rem;
         border-right: 2px solid red;

@@ -45,9 +45,7 @@
 
 <style scoped lang="scss">
 @import '../common/css/font/iconfont.css';
-    .flex{
-        flex: 1;
-    }
+@import '../common/css/common.css';
     .put_red{
         transition: 0.4s;
         cursor: pointer;
