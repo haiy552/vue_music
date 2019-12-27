@@ -33,7 +33,7 @@
     .bbox{
         width: 100%;
         height: 100%;
-        margin-top: 7rem;
+        margin-top: 6rem;
         .width_100{
             width: 100%;
         }

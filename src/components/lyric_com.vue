@@ -1,5 +1,5 @@
 <template>
-   <div class="lyric_box">
+   <div class="lyric_box scorrbar">
        <ul>
             <li v-for="item in music_lyric" :key="item.index"  class="lyric">
                 {{item}}
@@ -50,23 +50,13 @@
 </script>
 
 <style scoped lang="scss">
-    @import '../common/css/common.css';
+    @import '../common/css/common.scss';
     .lyric_box {
         width: 100%;
         text-align: center;
         height: 30rem;
         overflow: auto;
-        // border-right: 2px solid red;
         box-sizing: border-box;
-        &::-webkit-scrollbar {
-            width: 5px;
-            height: 1px;
-        }
-        /*滚动条滑块*/
-        &::-webkit-scrollbar-thumb {
-            border-radius: 2.5px;
-            -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-            background: #717273;
-        }
+       
     }
 </style>

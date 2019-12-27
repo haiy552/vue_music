@@ -1,5 +1,5 @@
 <template>
-        <div class="music_menu">
+        <div class="music_menu scorrbar" >
             
             <ul class="music_lists">
                 <!-- 歌曲列表 -->
@@ -32,6 +32,10 @@
 
 <script>
     import axios from 'axios';
+    import {Loading} from 'element-ui';
+    let option = {
+        background: "rgba(0,0,0,0.2)"
+    };
     axios.defaults.baseURL = 'http://localhost:3000';
     export default {
         name: "music_menu",
@@ -44,7 +48,6 @@
         created() {
             //在刷新网页后加载此方法
             this.create_music_list();
-
         },
         update () {
                 
@@ -55,7 +58,9 @@
         methods: {
             //通过url里的id，get请求后获取歌曲信息
             create_music_list(){
+                
                 let listId = this.$route.query.id;
+                let loadingInstance = Loading.service(option);
                 axios.get(`/playlist/detail?id=${listId}`).then(res => {
                     let music_list = res.data.playlist.tracks;
                     this.music_xinxi = music_list.map(item => {
@@ -64,6 +69,7 @@
                         }
                     });
                 });
+                 loadingInstance.close();
             },
             // 获取img绑定的歌曲id、图片、名字，改变play里面的图片和歌曲url
             get_List_Id(e){
@@ -108,6 +114,7 @@
 </script>
 
 <style scoped lang="scss">
+     @import '../common/css/common.scss';
     .left {
         float:left
     }
@@ -120,16 +127,6 @@
         overflow: auto;
         box-sizing: border-box;
         margin-top: 7rem;
-        &::-webkit-scrollbar {
-            width: 5px;
-            height: 1px;
-        }
-        /*滚动条滑块*/
-        &::-webkit-scrollbar-thumb {
-            border-radius: 2.5px;
-            -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-            background: #717273;
-        }
         .music_lists{
             display: flex;
             flex-direction: column;
@@ -156,7 +153,7 @@
                             height: 25px;
                             border-radius: 50%;
                             cursor: pointer;
-                            -webkit-box-shadow: inset 5px 5px 5px rgba(0,0,0,0.5);
+                            
                         }
                     }
                     .music_name{

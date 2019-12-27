@@ -1,6 +1,6 @@
 <template>
     <div class="carousel">
-        <el-carousel  :interval="2000" type="card" height="220px" >
+        <el-carousel  :interval="500000" type="card" height="220px" >
             <el-carousel-item class="yd" v-for="item in mag" :key="item.index" >
                 <img :src="item.imageUrl" alt="">
             </el-carousel-item>

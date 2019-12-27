@@ -1,5 +1,5 @@
 <template>
-    <div class="box">
+    <div class="box scorrbar">
             <ul>
                 <li v-for="item in img_list" :key="item.index" >
                     <router-link :to="{path: 'music_menu',query:{id: $store.getters.seeId}}">
@@ -12,27 +12,40 @@
 </template>
 
 <script>
+    import { Loading } from 'element-ui';
+    let options = {
+        background: "rgba(0,0,0,0.2)"
+    };
     import axios from 'axios';
     axios.defaults.baseURL = 'http://localhost:3000';
-
+    import { mapGetters } from 'vuex';
     export default {
         name: "music_list",
         data(){
             return{
                 img_list: [],
-                music_id: ''
+                music_id: '',
+                // music_style:this.$store.getters.music_music_style,
             }
         },
         created(){
-            this.get_Music_List()
+            this.get_Music_List(this.music_style);
+            this.get_demo()
+        },
+        computed: {
+            ...mapGetters([
+              'music_music_style'
+            ]),
         },
         methods:{
             get_Music_List(){
-                axios.get('/top/playlist?limit=56&cat:cat:华语&order=hot').then(res => {
+                let loadingInstance = Loading.service(options);
+                console.log(this.$store.getters.music_music_style);
+                axios.get(`/top/playlist?limit=56&cat=${this.music_music_style}&order=hot`).then(res => {
                     this.img_list = res.data.playlists;
-                    // console.log(this.img_list);
+                    console.log(this.img_list);
                 });
-                // console.log(this.$router)
+                loadingInstance.close();
             },
             // 通过歌单的id,请求歌单数据获取歌名和歌的id，然后通过歌的id获取歌的地址
             get_List_Id(e){
@@ -40,12 +53,18 @@
                 // console.log(id);
                 this.$store.commit("getListId", listId);
 
+            },
+            get_demo(){
+                axios.get('/playlist/catlist').then(res => {
+                    console.log(res.data)
+                });
             }
         }
     }
 </script>
 
 <style scoped lang="scss">
+    @import '../common/css/common.scss';
     .box{
         //框架尺寸定型
         width: 100%;
@@ -57,17 +76,7 @@
         border-top: 0;
         box-sizing: border-box;
         /*滚动条整体样式*/
-        &::-webkit-scrollbar {
-            width: 5px;
-            height: 1px;
-        }
-        /*滚动条滑块*/
-        &::-webkit-scrollbar-thumb {
-            border-radius: 2.5px;
-            -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-            background: #717273;
-        }
-
+       
         h4 {
             margin-top: 0.2rem;
             margin-left: 1.5rem;

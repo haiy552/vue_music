@@ -6,6 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     music:{
+      music_style: '',
       muisc_lits_id:'',
       music_id:'',
       music_scr:'',
@@ -37,6 +38,9 @@ export default new Vuex.Store({
     change_music_play(state, bool){
       return state.music.music_play = bool;
     },
+    change_music_style(state, music_style){
+      return state.music.music_style = music_style;
+    }
   },
   actions: {
   },
@@ -61,6 +65,9 @@ export default new Vuex.Store({
     },
     music_music_play(state){
       return state.music.music_play;
+    },
+    music_music_style(state){
+      return state.music.music_style;
     },
   },
   modules: {
