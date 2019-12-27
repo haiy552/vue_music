@@ -1,11 +1,10 @@
 <template>
     <div class="carousel">
-        <el-carousel  :interval="4000" type="card" height="220px" >
+        <el-carousel  :interval="2000" type="card" height="220px" >
             <el-carousel-item class="yd" v-for="item in mag" :key="item.index" >
                 <img :src="item.imageUrl" alt="">
             </el-carousel-item>
         </el-carousel>
-
     </div>
 </template>
 
@@ -34,7 +33,6 @@
 
 <style scoped>
     .carousel {
-        margin-top: 1rem;
     }
 
     .el-carousel__item img {

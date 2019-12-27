@@ -1,8 +1,7 @@
 <template>
-    <div class="bbox">
+    <div class="bbox">  
         <carousel></carousel>
         <music_list></music_list>
-
     </div>
 
 </template>
@@ -20,7 +19,7 @@
         }},
         components: {
             'music_list': music_list,
-            carousel
+            carousel,
         }
     }
 </script>
@@ -29,7 +28,10 @@
     .bbox{
         width: 100%;
         height: 100%;
-
+        margin-top: 7rem;
+        .width_100{
+            width: 100%;
+        }
     }
 
 

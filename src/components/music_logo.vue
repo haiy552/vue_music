@@ -1,5 +1,6 @@
 <template>
    <div class="music_logo">
+       
        <div class="music_logo_box">
          <img src="../image/music_logo.jpg" alt="" class="music_log_photo">
        </div>
@@ -19,16 +20,20 @@
 
 <style scoped lang="scss">
     .music_logo_box {
-        width: 24rem;
-        height: 24rem;
-        background-color: #4250cc;
+        width: 20rem;
+        height: 20rem;
+        background-color: #424242;
         border-radius: 50%;
         padding: 1rem;
-        border: 1rem solid #3bc76a;
+        border: 1rem solid #000000;
         box-sizing: border-box;
+        left:50%;
+        top: 50%;
+        position: absolute;
+        transform: translate(-50%, -50%);
         .music_log_photo {
-            width: 20rem;
-            height: 20rem;
+            width: 16rem;
+            height: 16rem;
             border-radius: 50%;
             animation:bottom_top 8s linear infinite;
         }

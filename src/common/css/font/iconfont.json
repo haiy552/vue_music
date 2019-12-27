@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "466908",
+      "name": "me",
+      "font_class": "me",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    },
+    {
+      "icon_id": "677569",
+      "name": "放大镜",
+      "font_class": "fangdajing",
+      "unicode": "e618",
+      "unicode_decimal": 58904
+    },
+    {
       "icon_id": "1106168",
       "name": "上一首",
       "font_class": "shangyishou",
@@ -27,25 +41,25 @@
       "unicode_decimal": 58886
     },
     {
-      "icon_id": "4292613",
-      "name": "播放",
-      "font_class": "bofang1",
-      "unicode": "e754",
-      "unicode_decimal": 59220
-    },
-    {
-      "icon_id": "4520155",
-      "name": "播放",
-      "font_class": "bofang2",
-      "unicode": "e687",
-      "unicode_decimal": 59015
+      "icon_id": "9097100",
+      "name": "家",
+      "font_class": "ziyuan",
+      "unicode": "e63f",
+      "unicode_decimal": 58943
     },
     {
       "icon_id": "9559064",
       "name": "播放",
-      "font_class": "ziyuan",
+      "font_class": "ziyuan1",
       "unicode": "e61b",
       "unicode_decimal": 58907
+    },
+    {
+      "icon_id": "10019534",
+      "name": "登入",
+      "font_class": "logindengru",
+      "unicode": "e6ca",
+      "unicode_decimal": 59082
     }
   ]
 }

@@ -5,7 +5,7 @@
                  <!-- 上一首 -->
                  <span class="iconfont icon-shangyishou music_pre" ></span>
                  <!-- 播放 -->   
-                <span class="iconfont icon-bofang1 music_playing"   @click="play" ref="play"></span>
+                <span class="iconfont icon-ziyuan1 music_playing"   @click="play" ref="play"></span>
 
                  <!-- 下一首 -->
                  <span class="iconfont icon-xiayishou music_next" ></span>
@@ -60,7 +60,7 @@
                 if(this.$store.getters.music_music_play){
                     this.$refs.au.pause();
                     this.$store.commit("change_music_play", false);
-                    this.$refs.play.className = "iconfont icon-bofang1 music_playing";
+                    this.$refs.play.className = "iconfont icon-ziyuan1 music_playing";
                 }else{
                     this.$refs.au.play();
                     this.$store.commit("change_music_play", true);
@@ -122,7 +122,7 @@
         margin-top: 0.5rem;
         width: 100%;
         height: 70px;
-        background-color: #333;
+        background-color: rgba(40,40,40,0.6);
         position: fixed;
         bottom: 0;
         left: 0;
@@ -179,7 +179,7 @@
                          display: block;
                          position: absolute;
                          bottom: 3rem;
-                         color:#DC4C40;
+                         color:rgb(65, 230, 147);
                          /*margin-top: 1rem;*/
                      }
                      .music_line {

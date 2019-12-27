@@ -1,6 +1,5 @@
 <template>
     <div class="box">
-        <h4>华语</h4>
             <ul>
                 <li v-for="item in img_list" :key="item.index" >
                     <router-link :to="{path: 'music_menu',query:{id: $store.getters.seeId}}">
@@ -50,7 +49,7 @@
     .box{
         //框架尺寸定型
         width: 100%;
-        height: 550px;
+        height: 500px;
         overflow: auto;
         margin-top: 1rem;
         border-right: 2px solid red;

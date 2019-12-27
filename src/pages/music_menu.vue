@@ -1,32 +1,33 @@
 <template>
-    <div class="music_menu">
-        <ul class="music_lists">
-            <!-- 歌曲列表 -->
-            <li v-for="(item, index) in music_xinxi" :key="item.id" class="music_list" >
-                <div class="dan_music">
-                    <!-- 序号 -->
-                    <span class="order">{{index + 1}}</span>
-                    <!-- 播放图片 -->
-                    <div class=" music_img">
-                        <!-- 点击此图片播放音乐 -->
-                        <img src="../image/play.jpg" :id="item.id" @click="get_List_Id">
+        <div class="music_menu">
+            
+            <ul class="music_lists">
+                <!-- 歌曲列表 -->
+                <li v-for="(item, index) in music_xinxi" :key="item.id" class="music_list" >
+                    <div class="dan_music">
+                        <!-- 序号 -->
+                        <span class="order">{{index + 1}}</span>
+                        <!-- 播放图片 -->
+                        <div class=" music_img">
+                            <!-- 点击此图片播放音乐 -->
+                            <img src="../image/play.jpg" :id="item.id" @click="get_List_Id">
+                        </div>
+                        <!-- 歌曲名 -->
+                        <div class="music_name">
+                            <router-link :to="{path: 'lyric',query:{id: item.id}}" tap="a">
+                                <p>{{item.name}}</p>
+                            </router-link>
+                        </div>
+                        <!-- 歌曲总时间 -->
+                        <div class="music_time" >
+                            <span>{{item.music_time}}</span>
+                        </div>
+                        <!-- 歌手 -->
+                        <span class="list_music_songer">{{item.songer}}</span>
                     </div>
-                    <!-- 歌曲名 -->
-                    <div class="music_name">
-                        <router-link :to="{path: 'lyric',query:{id: item.id}}" tap="a">
-                            <p>{{item.name}}</p>
-                        </router-link>
-                    </div>
-                    <!-- 歌曲总时间 -->
-                    <div class="music_time" >
-                        <span>{{item.music_time}}</span>
-                    </div>
-                    <!-- 歌手 -->
-                    <span class="list_music_songer">{{item.songer}}</span>
-                </div>
-            </li>
-        </ul>
-    </div>
+                </li>
+            </ul>
+        </div>
 </template>
 
 <script>
@@ -47,6 +48,9 @@
         },
         update () {
                 
+        },
+        components:{
+            
         },
         methods: {
             //通过url里的id，get请求后获取歌曲信息
@@ -107,16 +111,15 @@
     .left {
         float:left
     }
-    .cir {
-
-    }
+    
     .music_menu{
         width: 100%;
         height: 700px;
-        margin-top: 10rem;
+        margin-top: 3.5rem;
         border-right: 2px solid red;
         overflow: auto;
         box-sizing: border-box;
+        margin-top: 7rem;
         &::-webkit-scrollbar {
             width: 5px;
             height: 1px;
@@ -175,7 +178,7 @@
                         }
                     }
                     .music_time{
-                        cursor: pointer;
+                        // cursor: pointer;
                         flex: 2;
                     }
                     .list_music_songer {
