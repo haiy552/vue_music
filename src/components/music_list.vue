@@ -18,51 +18,46 @@
     };
     import axios from 'axios';
     axios.defaults.baseURL = 'http://localhost:3000';
-    import { mapGetters } from 'vuex';
+    // import { mapGetters } from 'vuex';
     export default {
         name: "music_list",
         data(){
             return{
                 img_list: [],
                 music_id: '',
-                // music_style:this.$store.getters.music_music_style,
             }
         },
         created(){
-            this.get_Music_List(this.music_style);
-            this.get_demo()
+            this.get_Music_List(this.$store.getters.music_music_style);
+        
         },
-        computed: {
-            ...mapGetters([
-              'music_music_style'
-            ]),
+        
+        watch:{
+            "$store.getters.music_music_style":function(val){
+                this.get_Music_List(val);
+            }
         },
         methods:{
-            get_Music_List(){
+            get_Music_List(val){
                 let loadingInstance = Loading.service(options);
-                console.log(this.$store.getters.music_music_style);
-                axios.get(`/top/playlist?limit=56&cat=${this.music_music_style}&order=hot`).then(res => {
+                axios.get(`/top/playlist?limit=56&cat=${val}&order=hot`).then(res => {
                     this.img_list = res.data.playlists;
-                    console.log(this.img_list);
                 });
                 loadingInstance.close();
             },
             // 通过歌单的id,请求歌单数据获取歌名和歌的id，然后通过歌的id获取歌的地址
             get_List_Id(e){
                 let listId = Number(e.target.attributes.list_id.value);
-                // console.log(id);
                 this.$store.commit("getListId", listId);
-
             },
             get_demo(){
                 axios.get('/playlist/catlist').then(res => {
                     console.log(res.data)
                 });
-            }
+            },
         }
     }
 </script>
-
 <style scoped lang="scss">
     @import '../common/css/common.scss';
     .box{
