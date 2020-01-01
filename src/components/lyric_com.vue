@@ -39,7 +39,8 @@
                 }) 
             },
             put_lyric(lyric){
-                let req = /[\u4e00-\u9fa5A-Za-z\s\t]+/g;
+                let req = /[\u4e00-\u9fa5A-Za-z\t\s',]+/g;
+                console.log(lyric);
                 let lyric_list = lyric.match(req);
                 return lyric_list
                 // this.this.music_lyric = lyric_list

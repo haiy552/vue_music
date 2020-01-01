@@ -2,7 +2,7 @@
     <div class="box scorrbar">
             <ul>
                 <li v-for="item in img_list" :key="item.index" >
-                    <router-link :to="{path: 'music_menu',query:{id: $store.getters.seeId}}">
+                    <router-link :to="{path:'/music_menu',query:{id: $store.getters.seeId}}">
                         <img :src="item.coverImgUrl"  :list_Id="item.id"  alt='' @click="get_List_Id">
                     </router-link>
                     <span style="color:#403636">{{item.name}}</span>
@@ -35,7 +35,8 @@
         watch:{
             "$store.getters.music_music_style":function(val){
                 this.get_Music_List(val);
-            }
+            },
+            
         },
         methods:{
             get_Music_List(val){

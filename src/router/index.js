@@ -8,12 +8,18 @@ Vue.use(VueRouter);
 const routes = [
   {
     path:'/',
-    redirect: '/home'
+    redirect: '/home/list'
   },
   {
     path: '/home',
     name: 'home',
-    component: () => import("../pages/home")
+    component: () => import("../pages/home"),
+    children:[
+      {path: '/home/list', component: () => import("../components/music_list")},
+      {path: '/home/rank', component: () => import("../components/rank")},
+      {path: '/home/songer', component: () => import("../components/songer")}
+
+    ]
   },
   {
     path: '/music_menu*',
@@ -25,6 +31,11 @@ const routes = [
     path: '/lyric*',
     name: 'lyric',
     component: () => import("../pages/lyric"),
+  },
+  {
+    path: '/rankList*',
+    name: 'rankList',
+    component: () => import("../pages/rankList"),
   }
 ];
 

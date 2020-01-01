@@ -1,8 +1,10 @@
 <template>
     <div class="bbox">  
         <carousel></carousel>
-        <menu_list></menu_list>
-        <music_list></music_list>
+        <menu_list :options="data" :dataName1="dataName" @getMenuValue="getMenu"></menu_list>
+        <!-- <music_list></music_list> -->
+        <router-view></router-view>
+        
     </div>
 
 </template>
@@ -10,7 +12,7 @@
 <script>
     import axios from 'axios';
     axios.defaults.baseURL = 'http://localhost:3000';
-    import music_list from "../components/music_list"
+    // import music_list from "../components/music_list"
     import carousel from '../components/carousel'
     import menu_list from '../components/menu_list'
 
@@ -18,15 +20,26 @@
     export default {
         name: "home",
         data(){return{
-            mag: null,
+            // mag: null,
+            data:["华语","粤语","欧美","日语","韩语"],
+            dataName:"请选择"
         }},
+        methods:{
+            getMenu(val){
+                this.dataName = val
+            }
+        },
         components: {
-            'music_list': music_list,
+            // 'music_list': music_list,
             carousel,
             menu_list
-
+        },
+        watch:{
+            dataName(dataName){
+                this.$store.commit("change_music_style",dataName);
+            }
         }
-    }
+    }   
 </script>
 
 <style  lang="scss" scoped>

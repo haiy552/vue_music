@@ -6,7 +6,7 @@
                    <!-- <span class="iconfont icon-ziyuan color_zi"></span> -->
                 </div>
                <div class="my_music flex put_red">
-                   <span>我的音乐 </span>
+                    <span>我的音乐 </span>
                    <span class="iconfont icon-me"></span>
                 </div>
                <div class="search flex ">
@@ -41,7 +41,7 @@
         
         methods: {
             back(){ 
-                this.$router.push({path:'/home'})  
+                this.$router.push({path:'/home/list'})  
             }
         }
     }
@@ -68,7 +68,7 @@
         width: 100%;
         height: 5rem;
         background-color: rgba(0,0,0,0.7);
-
+        box-sizing: border-box;
     }
    .title_box{
         width: 1080px;

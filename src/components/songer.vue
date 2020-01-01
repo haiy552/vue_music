@@ -1,0 +1,92 @@
+<template>
+    <div class="songerBox scorrbar">
+            
+                <li class="songerList" v-for="item in songerList" :key="item.Id">
+                    
+                    <img class="songerImg1" :src="item.picUrl" >
+                   
+                    <span class="songerName">{{item.name}}</span>
+                </li>
+    </div>
+</template>
+
+<script>
+    import { Loading } from 'element-ui';
+    let options = {
+        background: "rgba(0,0,0,0.2)"
+    };
+    import axios from 'axios';
+    axios.defaults.baseURL = 'http://localhost:3000';
+    // import { mapGetters } from 'vuex';
+    export default {
+        name: "songer",
+        data(){
+            return{
+               songerList: {
+                         
+                }
+            }
+        },
+        created(){
+            this.getSongerList();
+        },
+        methods:{
+            getSongerList(){
+                let loadingInstance = Loading.service(options);
+                axios.get("/top/artists?limit=56").
+                then(res=> {
+                let arr = res.data.artists;
+                this.songerList = arr;
+                })
+                loadingInstance.close();
+            }
+        }
+        
+    }
+</script>
+<style scoped lang="scss">
+@import '../common/css/common.scss';
+   .songerBox{
+       width: 100%;
+        height: 450px;
+        overflow: auto;
+        margin-top: 1rem;
+        border-right: 2px solid red;
+        border-bottom: 0;
+        border-top: 0;
+        box-sizing: border-box;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        .songerList{
+            flex:1;
+            width:25%;
+            height: 9rem;
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0.5rem;
+            padding-top: 0;
+            .songerImg1{
+                // width: 100%;
+                width:8rem;
+                height: 7rem;
+                display: block;
+                padding: 0;
+            }
+            .songerName{
+                flex: 1;
+                // width: 100%;
+                // height: 100%;
+                line-height: 2rem;
+                overflow: hidden;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+            }
+            
+        }
+
+   }
+
+</style>
