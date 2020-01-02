@@ -3,7 +3,7 @@
             
                 <li class="songerList" v-for="item in songerList" :key="item.Id">
                     
-                    <img class="songerImg1" :src="item.picUrl" >
+                    <img class="songerImg1" :src="item.picUrl" @click="get_List_Id(item.id)">
                    
                     <span class="songerName">{{item.name}}</span>
                 </li>
@@ -35,11 +35,19 @@
                 let loadingInstance = Loading.service(options);
                 axios.get("/top/artists?limit=56").
                 then(res=> {
+                console.log(res);
                 let arr = res.data.artists;
+                // console.log(arr);
                 this.songerList = arr;
                 })
                 loadingInstance.close();
-            }
+            },
+            get_List_Id(id){
+                this.$router.push({
+                    path:`/rankList?id=${id}`
+                })
+                this.$store.commit("getListId", id);
+            },
         }
         
     }
@@ -74,6 +82,7 @@
                 height: 7rem;
                 display: block;
                 padding: 0;
+                cursor: pointer;
             }
             .songerName{
                 flex: 1;

@@ -3,7 +3,7 @@
             
             <ul class="music_lists">
                 <!-- 歌曲列表 -->
-                <li v-for="(item, index) in music_xinxi" :key="item.id" class="music_list" >
+                <li v-for="(item, index) in music_xinxi" :key="item.id" class="music_list yingyin" >
                     <div class="dan_music">
                         <!-- 序号 -->
                         <span class="order">{{index + 1}}</span>
@@ -33,6 +33,7 @@
 <script>
     import axios from 'axios';
     import {Loading} from 'element-ui';
+    
     let option = {
         background: "rgba(0,0,0,0.2)"
     };
@@ -42,7 +43,7 @@
         data(){
             return {
                 //歌曲信息, 里面存放歌曲id、歌曲名、歌手、专辑图片url
-                music_xinxi: {},
+                music_xinxi: [],
             }
         },
         created() {
@@ -142,6 +143,7 @@
                     .order {
                         flex: 0.3;
                         height: 100%;
+                        text-align: center;
                     }
                     .music_img{
                         /*margin-left: 2rem;*/
@@ -168,9 +170,7 @@
                             p{
                                 display: block;
                                 height: 100%;
-                                &:hover {
-                                    color: pink;
-                                }
+                                
                             }
                         }
                     }

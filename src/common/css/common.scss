@@ -27,7 +27,15 @@ a {
     background: #717273;
     }
 }
+// 省略溢出
 .shenLue{
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
+}
+
+.yingyin{
+    &:hover{
+        box-shadow: 0 0px 20px 3px rgba(255, 255, 255, 0.3) inset;
+        border-radius: 0.7rem;
+    }
 }

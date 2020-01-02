@@ -1,10 +1,10 @@
 <template>
     <div class="rankBox scorrbar">
             <ul>
-                <li class="rank_Small_box" v-for="(item,index) in rankList" :key="item.id">
+                <li class="rank_Small_box yingyin" v-for="(item,index) in rankList" :key="item.id">
                     <div class="index">{{index+1}}</div>
                     <div class="rangImage">
-                        <router-link to="/rankList"><img class="rangImage1" :src="item.coverImgUrl" alt=""></router-link>
+                        <img class="rangImage1" :src="item.coverImgUrl"  @click="get_List_Id(item.id)">
                     </div>
                     <div class="rangTitle">
                         <span class="rangName">{{item.name}}</span>
@@ -35,17 +35,25 @@
             this.getRank();
         },
         methods:{
+          
             getRank(){
                 let loadingInstance = Loading.service(options);
                 axios.get("/toplist").
                 then(res=> 
                 {
-                    console.log(res.data.list);
+                    // console.log(res.data.list);
                 this.rankList = res.data.list
                 }
                 );
                 loadingInstance.close();
-            }
+            },
+            
+            get_List_Id(id){
+                this.$router.push({
+                    path:`/music_menu?id=${id}`
+                })
+                this.$store.commit("getListId", id);
+            },
         }
         
     }
@@ -66,13 +74,20 @@
            height: 4rem;
            display: flex;
            flex-direction: row;
+           
         //    justify-content:center;
             .rangImage{
                 flex:2;
                 height: 100%;
                 text-align: left;
                 .rangImage1{
+                    display: block;
                     height: 100%;
+                    border-radius: 50%;
+                    box-shadow: 0px 2px 12px 5px rgba(0,0,0,0.3);
+                    cursor: pointer;
+                    
+
                 }
             }
             .rangTitle{
