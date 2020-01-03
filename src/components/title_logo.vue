@@ -10,12 +10,15 @@
                    <span class="iconfont icon-me"></span>
                 </div>
                <div class="search flex ">
-                   <el-input
-                        class="ser_box"
-                        placeholder="歌曲、歌手"
-                        suffix-icon="el-icon-search"
+                   <div class="search1">
+                       <span class="iconfont icon-fangdajing"></span>
+                        <input 
+                        class="searchBox" 
+                        type="text"
+                        placeholder="歌手|歌曲"
                         >
-                    </el-input>
+                        
+                   </div>
                </div>
                 <div class="login flex put_red">
                    <span>登入 </span>
@@ -51,7 +54,7 @@
 @import '../common/css/font/iconfont.css';
 @import '../common/css/common.scss';
     .put_red{
-        transition: 0.4s;
+        transition: 0.5s;
         cursor: pointer;
         &:hover{
             background-color: rgb(52, 180, 127);
@@ -69,9 +72,10 @@
         height: 5rem;
         background-color: rgba(0,0,0,0.7);
         box-sizing: border-box;
+        display: flex;
     }
    .title_box{
-        width: 1080px;
+        min-width: 1080px;
         height: 100%;
         line-height: 5rem;
         margin: 0 auto;
@@ -81,23 +85,41 @@
        .music_list{
            background-color: red;
            cursor: pointer;
-
+           flex:1;
+           box-sizing: border-box;
        }
        .my_music{ 
        }
        .search{
-           position: relative;
-           padding:0 1rem;
-           .ser_box{
-               
-           }
-           .rearch_icon{
+        //    position: relative;
+           flex:1;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           color: black;
+           .search1{
+               width: 80%;
+               height: 2rem;
+               box-sizing: border-box;
+               position: relative;
+           .iconfont{
                position:absolute;
-               right: 0;
-           }  
-       }
-       .login{
-
-       }
-   }
+               z-index: 10;
+               top: -23px;
+               right:8px;
+           }
+           .searchBox{
+              display: block;
+              width: 100%;
+              height: 100%; 
+              border-radius: 1rem;
+              outline: none;
+              padding: 0.1rem 0.5rem;
+              box-sizing: border-box;
+           }
+           }
+        }  
+    }
+   
+   
 </style>

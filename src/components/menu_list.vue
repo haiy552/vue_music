@@ -89,6 +89,11 @@
         }
         
       }
+      .rank,
+      .songer{
+        border: 1px solid rgb(204, 57, 57);
+        border-left: 0;
+      }
     }
 
 </style>

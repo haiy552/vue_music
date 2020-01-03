@@ -1,7 +1,5 @@
 <template>
- 
-      <div class="music_menu scorrbar" >
-            
+      <div class="music_menu scorrbar" >  
             <!-- <ul class="music_lists scorrbar"> -->
                 <!-- 歌曲列表 -->
                 <li v-for="(item, index) in rangMusicList" :key="item.id" class="music_list yingyin" >
@@ -16,9 +14,9 @@
                         </div>
                         <!-- 歌曲名 -->
                         <div class="music_name">
-                            <router-link :to="{path: 'lyric',query:{id: item.id}}" >
-                                <p class="shenLue">{{item.name}}</p>
-                            </router-link>
+                            <!-- <router-link :to="{path: 'lyric',query:{id: item.id}}" > -->
+                                <p class="shenLue" @click="getListId(item.id)">{{item.name}}</p>
+                            <!-- </router-link> -->
                         </div>
                         <!-- 歌曲总时间 -->
                         <div class="music_time" >
@@ -28,7 +26,6 @@
                         <div class="list_music_songer">
                             <span >{{item.songer}}</span>
                         </div>
-                    
                 </li>
             <!-- </ul> -->
         </div>
@@ -69,7 +66,6 @@
                             id:item.id, name:item.name, url: item['al'].picUrl, songer: item['ar'][0].name, music_time: this.clean_time(item.dt)
                         }
                     })
-                    
                 });
                 loadingInstance.close();
             },
@@ -107,6 +103,12 @@
                 this.$store.commit("change_music_play", true);
                 
             },
+            getListId(id){
+                this.$router.push({
+                    path:`/lyric?id=${id}`
+                })
+                this.$store.commit("getListId", id);
+            },
         }   
     }
 </script>
@@ -116,7 +118,7 @@
     .music_menu{
          width: 100%;
             height: 750px;
-            margin-top: 7.5rem;
+            // margin-top: 7rem;
             overflow: auto;
             box-sizing: border-box;
             border-right: 2px solid red;
@@ -137,40 +139,50 @@
         //     align-items: center;
             
             .music_list{
-                // flex: 1;
+                flex: 1;
+                flex-shrink:1;
                 display: flex;
                 width: 100%;
-                height: 1.5rem;
-                justify-content: center;
+                // height: 50%;
+                // justify-content: flex-start;
                 align-items: center;
                 padding: 0.5rem 0;
                 .index{
-                    flex: 0.5;
+                    flex: 0.2;
                     text-align: center;
                 }
                 .music_img{
-                    flex: 1;
+                    flex: 0.2;
                     width: 100%;
-                    height: 100%;
+                    height: 1.5rem;
                     display: flex;
                     text-align: center;
                     .music_img1{
+                        // width: 25%;
                         height: 100%;
-                        
-                        // display: block;
+                        display: block;
                         border-radius: 50%;
                         cursor: pointer;
                         // height: 100%;
                     }
                 }
                 .music_name{
-                    flex: 2;
+                    flex: 1.5;
+                    height: 100%;
+                    width: 60%;
+                    -webkit-align-items: center;
+                    align-items: center;
+                    display: flex;
+                    .shenLue{
+                        cursor: pointer;
+                    }
                 }
                 .music_time{
-                    flex: 1;
+                    flex: 1.5;
                 }
                 .list_music_songer{
-                    flex: 2;
+                    flex: 1.5;
+                    
                 }
             }
         }

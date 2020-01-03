@@ -3,7 +3,9 @@
         <carousel></carousel>
         <menu_list :options="data" :dataName1="dataName" @getMenuValue="getMenu"></menu_list>
         <!-- <music_list></music_list> -->
-        <router-view></router-view>
+        <transition mode="out-in">
+            <router-view></router-view>
+        </transition>
         
     </div>
 
@@ -51,6 +53,14 @@
             width: 100%;
         }
     }
-
+    .v-enter,
+    .v-leave-to{
+        opacity:0;
+        transform: translateX(150px);
+    }
+    .v-enter-active,
+    .v-leave-active{
+        transition: all 0.5s ease;
+    }
 
 </style>

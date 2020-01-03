@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <title_logo></title_logo>
-    <router-view></router-view>
+    <router-view class="hight"></router-view>
     <play></play>
 <!--    <img src="./image/0.gif" alt="" class="pig_left">-->
 <!--    <img src="./image/0.gif" alt="" class="pig_right">-->
@@ -27,18 +27,26 @@
   padding: 0;
 }
 body {
-  background-color: #112025;
-  background-image: url("image/background1.jpg");
+  width: 100%;
+  height: 90vh;
+  // background:linear-gradient(#fff1eb,#ace0f9,#243949,#517fa4);
+  background:linear-gradient(#fff1eb,#ace0f9);
+  opacity:0.9;
+  // background-image: url("image/background1.jpg");
   background-size: cover;
   background-repeat:no-repeat;
 }
   #app {
     max-width: 1080px;
-    max-height: 950px;
+    height: 100%;
     min-width: 800px;
     margin: 0 auto;
     // position: relative;
   
+  }
+  .hight{
+    margin-top: 7rem;
+    height: 750px;
   }
 
 

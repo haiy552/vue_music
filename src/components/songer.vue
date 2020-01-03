@@ -35,7 +35,7 @@
                 let loadingInstance = Loading.service(options);
                 axios.get("/top/artists?limit=56").
                 then(res=> {
-                console.log(res);
+                // console.log(res);
                 let arr = res.data.artists;
                 // console.log(arr);
                 this.songerList = arr;

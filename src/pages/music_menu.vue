@@ -15,11 +15,11 @@
                         <!-- 歌曲名 -->
                         <div class="music_name">
                             <router-link :to="{path: 'lyric',query:{id: item.id}}" tap="a">
-                                <p>{{item.name}}</p>
+                                <p class="shenLue">{{item.name}}</p>
                             </router-link>
                         </div>
                         <!-- 歌曲总时间 -->
-                        <div class="music_time" >
+                        <div class="music_time">
                             <span>{{item.music_time}}</span>
                         </div>
                         <!-- 歌手 -->
@@ -59,7 +59,6 @@
         methods: {
             //通过url里的id，get请求后获取歌曲信息
             create_music_list(){
-                
                 let listId = this.$route.query.id;
                 let loadingInstance = Loading.service(option);
                 axios.get(`/playlist/detail?id=${listId}`).then(res => {
@@ -160,7 +159,7 @@
                     }
                     .music_name{
                         cursor: pointer;
-                        flex: 2.5;
+                        flex: 2;
                         height: 100%;
                         text-wrap: none;
                         overflow: hidden;
