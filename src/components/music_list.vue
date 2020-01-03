@@ -100,6 +100,13 @@
                     width: 7rem;
                     /*display: block;*/
                     cursor: pointer;
+                    border-radius: 1rem;
+                    box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.3);
+                    &:hover{
+                    // box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.3);
+                    transition: 0.2s;
+                    transform: translateY(-8px);
+                }
                 }
                 span{
                     width: 7rem;

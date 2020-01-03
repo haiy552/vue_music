@@ -122,7 +122,6 @@
     .music_menu{
         width: 100%;
         height: 750px;
-        margin-top: 3.5rem;
         border-right: 2px solid red;
         overflow: auto;
         box-sizing: border-box;

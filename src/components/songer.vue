@@ -75,7 +75,7 @@
             flex-direction: column;
             align-items: center;
             padding: 0.5rem;
-            padding-top: 0;
+            padding-top: 0.5rem;;
             .songerImg1{
                 // width: 100%;
                 width:8rem;
@@ -83,6 +83,13 @@
                 display: block;
                 padding: 0;
                 cursor: pointer;
+                border-radius: 1rem;
+                box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.3);
+                &:hover{
+                    // box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.3);
+                    transition: 0.2s;
+                    transform: translateY(-8px);
+                }
             }
             .songerName{
                 flex: 1;

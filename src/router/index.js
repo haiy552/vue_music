@@ -36,6 +36,17 @@ const routes = [
     path: '/rankList*',
     name: 'rankList',
     component: () => import("../pages/rankList"),
+  },
+  {
+    path: '/search*',
+    name: 'search',
+    component: () => import("../pages/search"),
+    children:[
+      {path: '/search/searchSonger*', component: () => import("../components/searchSonger")},
+      // {path: '/search/searchSing', component: () => import("../components/rank")},
+      // {path: '/search/searchMV', component: () => import("../components/songer")}
+
+    ]
   }
 ];
 

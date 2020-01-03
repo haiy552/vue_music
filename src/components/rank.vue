@@ -84,7 +84,7 @@
                     display: block;
                     height: 100%;
                     border-radius: 50%;
-                    box-shadow: 0px 2px 12px 5px rgba(0,0,0,0.3);
+                    box-shadow:  0px 2px 12px 5px rgba(0,0,0,0.3);
                     cursor: pointer;
                     
 

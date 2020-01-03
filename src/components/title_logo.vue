@@ -16,6 +16,8 @@
                         class="searchBox" 
                         type="text"
                         placeholder="歌手|歌曲"
+                        @keydown.enter="getSongList"
+                        ref="search"
                         >
                         
                    </div>
@@ -45,6 +47,12 @@
         methods: {
             back(){ 
                 this.$router.push({path:'/home/list'})  
+            },
+            getSongList(){
+                let word = this.$refs.search.value;
+                this.$router.push(`/search/searchSonger?keywords=${word}`)
+                // axios.get(`/search/suggest?keywords=${str}`).
+                // then(res => console.log(res));
             }
         }
     }
@@ -116,6 +124,9 @@
               outline: none;
               padding: 0.1rem 0.5rem;
               box-sizing: border-box;
+              border: 0;
+              box-shadow: 3px 3px 2px 2px rgba(0, 0, 0, 0.4), inset 1px 1px 2px 2px rgba(15, 11, 228, 0.4);
+            //   box-shadow: inset 2px 2px 2px 2px rgba(0, 0, 0, 0.4);
            }
            }
         }  
