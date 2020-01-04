@@ -38,17 +38,26 @@ const routes = [
     component: () => import("../pages/rankList"),
   },
   {
-    path: '/search*',
+    path: '/search',
     name: 'search',
     component: () => import("../pages/search"),
-    children:[
-      {path: '/search/searchSonger*', component: () => import("../components/searchSonger")},
-      // {path: '/search/searchSing', component: () => import("../components/rank")},
-      // {path: '/search/searchMV', component: () => import("../components/songer")}
+    props: route => ({keywords: route.query.keywords})
+    // children:[
+    //   {path: '/search/searchSonger', 
+    //   component: () => import("../components/searchSonger"),
+    //   props: route => ({keywords: route.params.keywords})
+    // },
+    //   // {path: '/search/searchSing', component: () => import("../components/rank")},
+    //   // {path: '/search/searchMV', component: () => import("../components/songer")}
 
-    ]
+    // ]
   }
 ];
+
+const routerPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return routerPush.call(this, location).catch(error=> error)
+}
 
 const router = new VueRouter({
   mode: 'history',

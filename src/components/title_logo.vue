@@ -50,7 +50,10 @@
             },
             getSongList(){
                 let word = this.$refs.search.value;
-                this.$router.push(`/search/searchSonger?keywords=${word}`)
+                this.$router.push(`/search?keywords=${word}`);
+                this.$refs.search.value = '';
+                
+                // this.$router.push({path:"/searchkeywords=${word}?", query:{keywords:word}})
                 // axios.get(`/search/suggest?keywords=${str}`).
                 // then(res => console.log(res));
             }

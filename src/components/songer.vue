@@ -75,7 +75,8 @@
             flex-direction: column;
             align-items: center;
             padding: 0.5rem;
-            padding-top: 0.5rem;;
+            padding-top: 0.5rem;
+            
             .songerImg1{
                 // width: 100%;
                 width:8rem;
@@ -85,6 +86,8 @@
                 cursor: pointer;
                 border-radius: 1rem;
                 box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.3);
+                background-image: url("../image/play.jpg");
+                background-size: cover;
                 &:hover{
                     // box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.3);
                     transition: 0.2s;

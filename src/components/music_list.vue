@@ -106,6 +106,8 @@
                     // box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.3);
                     transition: 0.2s;
                     transform: translateY(-8px);
+                    background-image: url("../image/play.jpg");
+                    background-size: cover;
                 }
                 }
                 span{
