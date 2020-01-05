@@ -1,85 +1,90 @@
 <template>
-         <div class="music_menu scorrbar" >  
+         <div class="searchBox">  
             <!-- <ul class="music_lists scorrbar"> -->
                 <!-- 歌曲列表 -->
-                <li v-for="(item, index) in singList" :key="item.id" class="music_list yingyin" >
-                        <div class="index">
-                        <!-- 序号 -->
-                            <span>{{index + 1}}</span>
-                        <!-- 播放图片 -->
-                        </div>
-                        <div class="music_img" >
-                            <!-- 点击此图片播放音乐 -->
-                            <img class="music_img1" src="../image/play.jpg" :id="item.id" @click="get_List_Id">                         </div>
-                        <!-- 歌曲名 -->
-                        <div class="music_name">
-                            <!-- <router-link :to="{path: 'lyric',query:{id: item.id}}" > -->
-                                <p class="shenLue" >{{item.name}}</p>
-                            <!-- </router-link> -->
-                        </div>
-                        <!-- 歌曲总时间 -->
-                        <div class="music_time" >
-                            <p class="shenLue" @click="getListId(item.id)">{{item.music_time}}</p>
-                        </div>
-                        <!-- 歌手 -->
-                        <div class="list_music_songer">
-                            <span >{{item.songer}}</span>
-                        </div>
+            <div class="music_menu scorrbar" ref="menu" @click="getScollHeight">
+                <li v-for="(item, index) in singList" :key="item.id" class="music_list yingyin"  >
+                    <div class="index">
+                    <!-- 序号 -->
+                        <span>{{index + 1}}</span>
+                    <!-- 播放图片 -->
+                    </div>
+                    <div class="music_img" >
+                        <!-- 点击此图片播放音乐 -->
+                        <img class="music_img1" src="../image/play.jpg" :id="item.id" @click="get_List_Id">
+                    </div>
+                    <!-- 歌曲名 -->
+                    <div class="music_name">
+                        <!-- <router-link :to="{path: 'lyric',query:{id: item.id}}" > -->
+                            <p class="shenLue" @click="getListId(item.id)">{{item.name}}</p>
+                        <!-- </router-link> -->
+                    </div>
+                    <!-- 歌曲总时间 -->
+                    <div class="music_time" >
+                        <p class="shenLue" >{{item.music_time}}</p>
+                    </div>
+                    <!-- 歌手 -->
+                    <div class="list_music_songer">
+                        <span >{{item.songer}}</span>
+                    </div>
                 </li>
-            <!-- </ul> -->
+            </div>
+             
         </div>
 </template>
 
 <script>
     import axios from 'axios';
-    import {Loading} from 'element-ui';
+    // import {Loading} from 'element-ui';
     
-    let options = {
-        background: "rgba(0,0,0,0.2)"
-    };
+    // let options = {
+    //     background: "rgba(0,0,0,0.2)"
+    // };
     axios.defaults.baseURL = 'http://localhost:3000';
     export default {
         name: "music_menu",
         data(){
             return {
+                // word: this.$route.query.keywords,
                 count: '',
-                singList:[]
+                singList:[],
+                scollHeight:'',
+                num: 30,
+                page: 1
                 
             }
         },
-        created() {
-            this.getRankList(this.word)
+        beforeMount() {
+            
+            this.getRankList()
+            
+            
         },
-        update () {
-                
+        mounted() {
+            
+           
         },
         components:{
             
         },
         methods: {
-           getRankList(word){
-                let loadingInstance = Loading.service(options);
-        
-                axios.get(`/search?keywords=${word? word: this.$route.query.keywords}`).
+           getRankList(page = 1){
+                // let loadingInstance = Loading.service(options);
+                axios.get(`/search?keywords=${this.$route.query.keywords}&limit=${this.num*page}`).
                 then(res=> {
                     let arr = res.data.result;
-                    console.log(arr);
+                    // console.log(arr);
+                    // console.log(arr['songs']);
                     this.count = arr.songCount;
-                    this.singList =  arr['songs'].map(item => {
+                    this.singList = arr.songs.map(item => {
                         return {
                             id: item.id, name: item.name, music_time: this.clean_time(item.duration), songer: item.artists[0].name 
                         }
                     })
-                    // 判断对象是否为空
-                    // let flag = Object.keys(arr).length==0
-                    // // console.log(arr);
-                    // if(!flag){
-                    //     console.log(arr);
-                    // }else{
-                    //     alert("没有搜索到您要的内容")
-                    // } 
-                });
-                loadingInstance.close();
+                   
+                })
+                
+                
             },
             get_List_Id(e){
                 //把之前的url取消
@@ -121,20 +126,67 @@
                 })
                 this.$store.commit("getListId", id);
             },
+            scrollFuc() {
+                // let [mSH, mCH, mST] = [this.$refs.menu.scrollHeight,this.$refs.menu.clientHeight,this.$refs.menu.scrollTop];
+            //    let flag = this.$refs.menu.scrollHeight - this.$refs.menu.clientHeight - this.$refs.menu.scrollTo <= 50;
+               let c = this.$refs.menu.clientHeight;
+               if(this.h - this.t - c <= 50){
+                   console.log(1);
+                   this.page++;
+                   this.getRankList(this.page)
+               }
+            //    return flag ?  this.page++ : ""
+            },
+            getScollHeight(){
+                console.dir(this.$refs.menu);
+                console.log(this.$refs.menu.scrollHeight,this.$refs.menu.clientHeight,this.$refs.menu.scrollTop)
+
+            }
+           
         },
         computed:{
-            newword:function(){
-                return this.getRankList(this.$route.query.keywords);
+            allNum(){
+              return Math.ceil(this.count/this.num)
+            },
+            // ready(){
+            // return this.scrollFuc(this.flag);
+            // },
+            
+            h(){
+                return this.$refs.menu.scrollHeight
+            },
+            Height(){
+              return  this.$refs.menu.addEventListener("scroll", this.scrollFuc, true);
             }
+            
+        },
+        watch:{
+            // singList(){
+            //     this.getRankList()  
+            // },
+            // scollHeight:function(){
+            //     console.log(1);
+            //     return this.$refs.menu.scrollTop
+            // }
+            scollHeight(){
+                 this.$refs.menu.scrollTop
+            },
+            
         }
+     
     }
 </script>
 
 <style scoped lang="scss">
      @import '../common/css/common.scss';
+     
+    .searchBox{
+        width: 100%;
+        height: 770px;
+        position: relative;
         .music_menu{
-         width: 100%;
-            height: 750px;
+            width: 100%;
+            height: 700px;
             // margin-top: 7rem;
             overflow: auto;
             box-sizing: border-box;
@@ -143,18 +195,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-        // .music_lists{
-        //     width: 100%;
-        //     height: 750px;
-        //     margin-top: 7.5rem;
-        //     overflow: auto;
-        //     box-sizing: border-box;
-        //     border-right: 2px solid red;
-        //     display: flex;
-        //     flex-direction: column;
-        //     justify-content: center;
-        //     align-items: center;
-            
+
             .music_list{
                 flex: 1;
                 flex-shrink:1;
@@ -203,4 +244,31 @@
                 }
             }
         }
+        .num{
+            position: absolute;
+            overflow: hidden;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50%;
+            height: 4rem;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            .num1{
+                flex: 1;
+                span{
+                    display: block;
+                    width: 2rem;
+                    height: 2rem;
+                    line-height: 2rem;
+                    background-color: #fff;
+                    margin: 0 auto;
+                    cursor: pointer;
+                }
+                
+                
+            }
+        }
+    }
 </style>

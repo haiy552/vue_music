@@ -1,7 +1,7 @@
 <template>
   <div class="menu_list">
-    <div class="musicStyle flex" @mouseenter="show(true)" @mouseleave="show(false)">{{dataName1 === "请选择"? dataName1: this.$store.getters.music_music_style}}
-      <div class="musicStyle_Box"  v-show="flag">
+    <div class="musicStyle flex" @mouseenter="show(true)" @mouseleave="show(false)" >{{dataName1 === "请选择"? dataName1: this.$store.getters.music_music_style}}
+      <div class="musicStyle_Box"   ref="box">
         <router-link to="list" class="musicStyle_Sbox"
         v-for="(item, index) in options" 
         :key="index">
@@ -32,7 +32,16 @@
     },
     methods:{
       show(val){
-        this.flag = val
+        // this.flag = val;
+        let box = this.$refs.box.style;
+        // console.log(box);
+        if(val){
+          box.height="10rem";
+        }else{
+          box.height="0";
+        }
+        box.transition = "all 0.2s ease";
+        // console.log(box.transition)
       },
       getMenuValue1(val){
         this.$emit("getMenuValue",val)
@@ -70,9 +79,11 @@
         background-color: rgba(0, 0, 0,0.7);
         .musicStyle_Box{
             height: 10rem;
+            height: 0;
+            overflow: hidden;
             width: 100%;
             // left: 50%;
-            bottom:-10rem;
+            top: 2rem;
             // transform: translateX(-50%);
             border-radius: 0 0 1rem 1rem;
             background-color: rgba(0, 0, 0,0.7);

@@ -45,18 +45,25 @@
         },
         
         methods: {
+             
             back(){ 
                 this.$router.push({path:'/home/list'})  
             },
             getSongList(){
-                let word = this.$refs.search.value;
-                this.$router.push(`/search?keywords=${word}`);
+                let word = this.$refs.search.value.trimStart();
+                if( word !== ""){
+                   this.$router.push(`/search?keywords=${word}`); 
+                }else{
+                    alert("内容不能为空")
+                }
+            
                 this.$refs.search.value = '';
                 
                 // this.$router.push({path:"/searchkeywords=${word}?", query:{keywords:word}})
                 // axios.get(`/search/suggest?keywords=${str}`).
                 // then(res => console.log(res));
-            }
+            },
+           
         }
     }
 </script>

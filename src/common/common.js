@@ -27,3 +27,12 @@ export function getListId(val){
     this.$store.commit("change_music_play", true);
     
 }
+
+ // 判断对象是否为空
+                    // let flag = Object.keys(arr).length==0
+                    // // console.log(arr);
+                    // if(!flag){
+                    //     console.log(arr);
+                    // }else{
+                    //     alert("没有搜索到您要的内容")
+                    // } 

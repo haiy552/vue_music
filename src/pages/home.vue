@@ -56,7 +56,7 @@
     .v-enter,
     .v-leave-to{
         opacity:0;
-        transform: translateX(150px);
+        transform: translateY(150px);
     }
     .v-enter-active,
     .v-leave-active{
