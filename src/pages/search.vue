@@ -2,8 +2,8 @@
          <div class="searchBox">  
             <!-- <ul class="music_lists scorrbar"> -->
                 <!-- 歌曲列表 -->
-            <div class="music_menu scorrbar" ref="menu" @click="getScollHeight">
-                <li v-for="(item, index) in singList" :key="item.id" class="music_list yingyin"  >
+            <div class="music_menu scorrbar" ref="menu" >
+                <li v-for="(item, index) in singList" :key="item.id" class="music_list yingyin" @mouseenter="show(index, true)" @mouseleave="show(index,false)">
                     <div class="index">
                     <!-- 序号 -->
                         <span>{{index + 1}}</span>
@@ -17,6 +17,7 @@
                     <div class="music_name">
                         <!-- <router-link :to="{path: 'lyric',query:{id: item.id}}" > -->
                             <p class="shenLue" @click="getListId(item.id)">{{item.name}}</p>
+                            <span class="iconfont icon-xinbaniconshangchuan-" style="opacity: 0" ref="icon" ></span>
                         <!-- </router-link> -->
                     </div>
                     <!-- 歌曲总时间 -->
@@ -33,7 +34,7 @@
         </div>
 </template>
 
-<script>
+<script>4
     import axios from 'axios';
     // import {Loading} from 'element-ui';
     
@@ -46,19 +47,19 @@
         data(){
             return {
                 // word: this.$route.query.keywords,
+                flag: false,
                 count: '',
                 singList:[],
                 scollHeight:'',
                 num: 30,
-                page: 1
-                
+                page: 1,
+                url: '',
             }
+            
         },
         beforeMount() {
-            
-            this.getRankList()
-            
-            
+
+            this.getRankList() 
         },
         mounted() {
             
@@ -68,9 +69,22 @@
             
         },
         methods: {
-           getRankList(page = 1){
+            dow(id){
+                axios.get(`/song/url?id=${id}`).then(res => {
+                    // console.log(window.location);
+                   this.url = res.data.data[0].url;
+                //    window.location.href = `${url}`;
+                //    this.url = '';
+                })
+            },
+
+            show(index,bool){
+                bool ? this.$refs.icon[index].style.opacity = 1 : this.$refs.icon[index].style.opacity = 0;
+            },
+            getRankList(page){
+                let page1 = page ? page : 1
                 // let loadingInstance = Loading.service(options);
-                axios.get(`/search?keywords=${this.$route.query.keywords}&limit=${this.num*page}`).
+                axios.get(`/search?keywords=${this.$route.query.keywords}&limit=${this.num*page1}`).
                 then(res=> {
                     let arr = res.data.result;
                     // console.log(arr);
@@ -127,15 +141,9 @@
                 this.$store.commit("getListId", id);
             },
             scrollFuc() {
-                // let [mSH, mCH, mST] = [this.$refs.menu.scrollHeight,this.$refs.menu.clientHeight,this.$refs.menu.scrollTop];
-            //    let flag = this.$refs.menu.scrollHeight - this.$refs.menu.clientHeight - this.$refs.menu.scrollTo <= 50;
-               let c = this.$refs.menu.clientHeight;
-               if(this.h - this.t - c <= 50){
-                   console.log(1);
-                   this.page++;
-                   this.getRankList(this.page)
-               }
-            //    return flag ?  this.page++ : ""
+                //let [mSH, mCH, mST] = [this.$refs.menu.scrollHeight,this.$refs.menu.clientHeight,this.$refs.menu.scrollTop];
+                //let flag = this.$refs.menu.scrollHeight - this.$refs.menu.clientHeight - this.$refs.menu.scrollTo <= 50;
+               
             },
             getScollHeight(){
                 console.dir(this.$refs.menu);
@@ -152,12 +160,12 @@
             // return this.scrollFuc(this.flag);
             // },
             
-            h(){
-                return this.$refs.menu.scrollHeight
-            },
-            Height(){
-              return  this.$refs.menu.addEventListener("scroll", this.scrollFuc, true);
-            }
+            // h(){
+            //     return this.$refs.menu.scrollHeight
+            // },
+            // Height(){
+            //   return  this.$refs.menu.addEventListener("scroll", this.scrollFuc, true);
+            // }
             
         },
         watch:{
@@ -168,9 +176,9 @@
             //     console.log(1);
             //     return this.$refs.menu.scrollTop
             // }
-            scollHeight(){
-                 this.$refs.menu.scrollTop
-            },
+            // scollHeight(){
+            //      this.$refs.menu.scrollTop
+            // },
             
         }
      
@@ -205,6 +213,7 @@
                 // justify-content: flex-start;
                 align-items: center;
                 padding: 0.5rem 0;
+            
                 .index{
                     flex: 0.2;
                     text-align: center;
@@ -231,7 +240,16 @@
                     -webkit-align-items: center;
                     align-items: center;
                     display: flex;
+                    justify-content: space-between;
                     .shenLue{
+                        flex: 1;
+                        cursor: pointer;
+                    }
+                    .iconfont{
+                        display:block;
+                        text-align: center;
+                        font-size: 1.5rem;
+                        flex: 1;
                         cursor: pointer;
                     }
                 }

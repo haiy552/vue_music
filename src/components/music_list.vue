@@ -28,6 +28,7 @@
             }
         },
         created(){
+            window.scroll(0, 0);
             this.get_Music_List(this.$store.getters.music_music_style);
         
         },

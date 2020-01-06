@@ -26,7 +26,7 @@
         created() {
             //在刷新网页后加载此方法
             // this.create_music_list();
-            this.getRankList()
+            
         },
         update () {
                 
@@ -35,19 +35,7 @@
             
         },
         methods: {
-            getRankList(){
-                
-                let word = this.$route.query.keywords;
-                console.log(word);
-                // axios.get(`/search/multimatch?keywords=${word}`).
-                // then(res=> {
-                //     let arr = res.data;
-                //     console.log(arr);
-                    
-                    
-                // });
-                
-            },
+            
         }
     }
 </script>

@@ -32,6 +32,7 @@
             }
         },
         created(){
+            window.scroll(0, 0);
             this.getRank();
         },
         methods:{

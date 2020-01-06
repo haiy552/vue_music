@@ -2,7 +2,7 @@
       <div class="music_menu scorrbar" >  
             <!-- <ul class="music_lists scorrbar"> -->
                 <!-- 歌曲列表 -->
-                <li v-for="(item, index) in rangMusicList" :key="item.id" class="music_list yingyin" >
+                <li v-for="(item, index) in rangMusicList" :key="item.id" class="music_list yingyin" @mouseenter="show(index, true)" @mouseleave="show(index,false)" >
                         <div class="index">
                         <!-- 序号 -->
                             <span>{{index + 1}}</span>
@@ -16,6 +16,7 @@
                         <div class="music_name">
                             <!-- <router-link :to="{path: 'lyric',query:{id: item.id}}" > -->
                                 <p class="shenLue" @click="getListId(item.id)">{{item.name}}</p>
+                                <span class="iconfont icon-xinbaniconshangchuan-" style="opacity: 0" ref="icon" ></span>
                             <!-- </router-link> -->
                         </div>
                         <!-- 歌曲总时间 -->
@@ -55,6 +56,9 @@
             this.getRankList();
         },
         methods:{
+            show(index,bool){
+                bool ? this.$refs.icon[index].style.opacity = 1 : this.$refs.icon[index].style.opacity = 0;
+            },
             getRankList(){
                 let loadingInstance = Loading.service(options);
                 let listId = this.$route.query.id;
@@ -174,6 +178,14 @@
                     align-items: center;
                     display: flex;
                     .shenLue{
+                        flex: 1;
+                        cursor: pointer;
+                    }
+                    .iconfont{
+                        display:block;
+                        text-align: center;
+                        font-size: 1.5rem;
+                        flex: 1;
                         cursor: pointer;
                     }
                 }

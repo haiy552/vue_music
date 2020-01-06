@@ -3,7 +3,7 @@
             
             <ul class="music_lists">
                 <!-- 歌曲列表 -->
-                <li v-for="(item, index) in music_xinxi" :key="item.id" class="music_list yingyin" >
+                <li v-for="(item, index) in music_xinxi" :key="item.id" class="music_list yingyin" @mouseenter="show(index, true)" @mouseleave="show(index,false)">
                     <div class="dan_music">
                         <!-- 序号 -->
                         <span class="order">{{index + 1}}</span>
@@ -17,6 +17,7 @@
                             <router-link :to="{path: 'lyric',query:{id: item.id}}" tap="a">
                                 <p class="shenLue">{{item.name}}</p>
                             </router-link>
+                            <span class="iconfont icon-xinbaniconshangchuan-" style="opacity: 0" ref="icon" ></span>
                         </div>
                         <!-- 歌曲总时间 -->
                         <div class="music_time">
@@ -57,6 +58,9 @@
             
         },
         methods: {
+            show(index,bool){
+                bool ? this.$refs.icon[index].style.opacity = 1 : this.$refs.icon[index].style.opacity = 0;
+            },
             //通过url里的id，get请求后获取歌曲信息
             create_music_list(){
                 let listId = this.$route.query.id;
@@ -162,7 +166,9 @@
                         height: 100%;
                         text-wrap: none;
                         overflow: hidden;
+                        display: flex;
                         a{
+                            flex: 1;
                             color:#000000;
                             text-decoration: none;
                             p{
@@ -171,6 +177,13 @@
                                 
                             }
                         }
+                        .iconfont{
+                        display:block;
+                        text-align: center;
+                        font-size: 1.5rem;
+                        flex: 1;
+                        cursor: pointer;
+                    }
                     }
                     .music_time{
                         // cursor: pointer;

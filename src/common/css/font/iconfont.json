@@ -6,18 +6,18 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "383602",
+      "name": "放大镜",
+      "font_class": "fangdajing",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
       "icon_id": "466908",
       "name": "me",
       "font_class": "me",
       "unicode": "e617",
       "unicode_decimal": 58903
-    },
-    {
-      "icon_id": "677569",
-      "name": "放大镜",
-      "font_class": "fangdajing",
-      "unicode": "e618",
-      "unicode_decimal": 58904
     },
     {
       "icon_id": "1106168",
@@ -60,6 +60,13 @@
       "font_class": "logindengru",
       "unicode": "e6ca",
       "unicode_decimal": 59082
+    },
+    {
+      "icon_id": "10044416",
+      "name": "下载",
+      "font_class": "xinbaniconshangchuan-",
+      "unicode": "e648",
+      "unicode_decimal": 58952
     }
   ]
 }

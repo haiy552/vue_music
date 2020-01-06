@@ -22,12 +22,15 @@
         name: "songer",
         data(){
             return{
+                
                songerList: {
                          
                 }
             }
         },
         created(){
+            
+            window.scroll(0, 0);
             this.getSongerList();
         },
         methods:{
